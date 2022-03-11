@@ -1,0 +1,58 @@
+RewriteEngine on
+Options -Indexes
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+DirectoryIndex index.php 
+
+ErrorDocument 400 index.html
+ErrorDocument 401 index.html
+ErrorDocument 403 index.html
+ErrorDocument 404 index.html
+ErrorDocument 500 index.html
+ErrorDocument 502 index.html
+ErrorDocument 504 index.html
+
+RewriteRule ^admin/$ admin/index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#Link Thumb
+
+RewriteRule ^thumb/([0-9]+)x([0-9]+)/([0-9]+)/(.*)$ timthumb.php?w=$1&h=$2&zc=$3&q=95&src=http://%{HTTP_HOST}/doan_thoitrang/$4  [L]
+
+#Link Trang Chu
+
+
+RewriteRule ^([a-zA-Z0-9_-]+).html/page=([0-9]+)$ index.php?com=$1&curPage=$2 [L]
+
+RewriteRule ^([a-zA-Z0-9_-]+).html$ index.php?com=$1  [L]
+RewriteRule ^([a-zA-Z0-9_-]+).html/$ index.php?com=$1  [L]
+
+#link search
+RewriteRule ^([a-zA-Z0-9_-]+)/keyword=(.*)/page=([0-9]+)$	index.php?com=$1&keyword=$2&curPage=$3 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/keyword=(.*)/$ index.php?com=$1&keyword=$2 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/keyword=(.*)$	index.php?com=$1&keyword=$2 [L]
+
+
+
+#link Chi tiet(Detail)
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9]+).html$ index.php?com=$1&id=$3  [L]
+
+
+
+#link danh muc san pham
+
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?com=san-pham&idl=$1  [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/page=([0-9]+)$ index.php?com=san-pham&idl=$1&curPage=$2  [L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?com=san-pham&idl=$1&idcat=$2  [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/page=([0-9]+)$ index.php?com=san-pham&idl=$1&idcat=$2&curPage=$3 [L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?com=san-pham&idl=$1&idcat=$2&idi=$3  [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/page=([0-9]+)$ index.php?com=san-pham&idl=$1&idcat=$2&idi=$3&curPage=$4 [L]
+
+
+
